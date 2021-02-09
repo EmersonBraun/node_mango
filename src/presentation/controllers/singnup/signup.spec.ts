@@ -1,6 +1,6 @@
+import { InvalidParamError, MissingParamError, ServerError } from '../../errors'
 import { SingUpController } from './signup'
-import { MissingParamError, InvalidParamError, ServerError } from '../../errors'
-import { EmailValidator, AddAccount, AddAccountModel, AccountModel } from './singnup-protocols'
+import { AccountModel, AddAccount, AddAccountModel, EmailValidator } from './singnup-protocols'
 
 const makeEmailValidator = (): EmailValidator => {
   class EmailValidatorStub implements EmailValidator {
@@ -139,8 +139,7 @@ describe('Signup Controller', () => {
         passwordConfirmation: 'any_password'
       }
     }
-    const httpResponse = await sut.handle(httpRequest)
-    console.log(httpResponse)
+    await sut.handle(httpRequest)
     expect(isValidSpy).toHaveBeenCalledWith('any_email@mail.com')
   })
 
